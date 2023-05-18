@@ -1,12 +1,20 @@
 # streamlit run aim.py
+import streamlit as st
 import os
 import pandas as pd
-import streamlit as st
-import agents
-import prompts
 from langchain.llms import OpenAI
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
+
+openai_api_key = st.text_input("OpenAI API Key", type="password")
+os.environ['OPENAI_API_KEY'] = openai_api_key
+
+if os.environ['OPENAI_API_KEY'] == "":
+    raise Exception("Please set your OpenAI API Key")
+
+
+import agents
+import prompts
 
 
 datasets, pdaichat, aimchat = st.tabs (["Datasets", "PDAI Chat", "AIM Chat"])
